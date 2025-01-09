@@ -1,3 +1,5 @@
+package MyComponents;
+
 import java.util.Date;
 
 public class Product {
@@ -67,6 +69,6 @@ public class Product {
     @Override
     public String toString() {
         String expirationInfo = (expirationDate != null) ? "Expiration Date: " + expirationDate : "Expiration Date: Not Set";
-        return String.format("Product ID: %d\nLabel: %s\nBrand: %s\nPrice: %.2f\n%s\n------------------------", id, label, brand, price, expirationInfo);
+        return String.format("MyComponents.Product ID: %d\nLabel: %s\nBrand: %s\nPrice: %.2f\n%s\n------------------------", id, label, brand, price, expirationInfo);
     }
 }
