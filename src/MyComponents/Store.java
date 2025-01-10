@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Store {
-    // Attributes
     private int id;
     private String address;
     private int capacity;
@@ -18,7 +17,7 @@ public class Store {
         this.products = new ArrayList<>();
     }
 
-    // Getter and Setter methods
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -43,23 +42,38 @@ public class Store {
         this.capacity = capacity;
     }
 
-    // Add a product to the store
+    // Add product to store
     public boolean addProduct(Product product) {
         if (products.size() >= capacity) {
-            System.out.println("MyComponents.Store capacity reached! Cannot add more products.");
+            System.out.println("Store capacity reached! Cannot add more products.");
             return false;
         }
-        if (product.getPrice() < 0) {
-            System.out.println("Cannot add product with a negative price.");
+        if (products.stream().anyMatch(existingProduct -> existingProduct.compare(product))) {
+            System.out.println("Product already exists in the store.");
             return false;
         }
         products.add(product);
         return true;
     }
 
+    // Search for a product in the store
+    public boolean searchProduct(Product product) {
+        return products.stream().anyMatch(existingProduct -> existingProduct.compare(product));
+    }
+
+    // Remove a product from the store
+    public boolean removeProduct(Product product) {
+        return products.removeIf(existingProduct -> existingProduct.compare(product));
+    }
+
+    // Get the store with more products
+    public static Store getStoreWithMoreProducts(Store store1, Store store2) {
+        return store1.products.size() >= store2.products.size() ? store1 : store2;
+    }
+
     // Display store details
     public void displayStoreDetails() {
-        System.out.println("MyComponents.Store Details:");
+        System.out.println("Store Details:");
         System.out.println("ID: " + id);
         System.out.println("Address: " + address);
         System.out.println("Capacity: " + capacity);
@@ -69,10 +83,5 @@ public class Store {
             System.out.println("- " + product.getLabel() + " ($" + product.getPrice() + ")");
         }
         System.out.println("------------------------");
-    }
-
-    // Calculate the total number of products in the store
-    public int getTotalProducts() {
-        return products.size();
     }
 }

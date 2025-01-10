@@ -3,14 +3,13 @@ package MyComponents;
 import java.util.Date;
 
 public class Product {
-    // Attributes
     private int id;
     private String label;
     private String brand;
     private double price;
     private Date expirationDate;
 
-    // Constructor for creating a product with all details
+    // Constructor for full initialization
     public Product(int id, String label, String brand, double price, Date expirationDate) {
         this.id = id;
         this.label = label;
@@ -19,12 +18,12 @@ public class Product {
         this.expirationDate = expirationDate;
     }
 
-    // Default constructor (for empty product)
+    // Default constructor
     public Product() {
         this(0, "", "", 0.0, null);
     }
 
-    // Getter and Setter methods
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -54,7 +53,11 @@ public class Product {
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        if (price >= 0) {
+            this.price = price;
+        } else {
+            System.out.println("Price cannot be negative!");
+        }
     }
 
     public Date getExpirationDate() {
@@ -65,10 +68,22 @@ public class Product {
         this.expirationDate = expirationDate;
     }
 
-    // Method to format the display of product information
+    // Compare methods
+    public boolean compare(Product otherProduct) {
+        return this.id == otherProduct.id &&
+                this.label.equals(otherProduct.label) &&
+                this.price == otherProduct.price;
+    }
+
+    public static boolean compare(Product product1, Product product2) {
+        return product1.id == product2.id &&
+                product1.label.equals(product2.label) &&
+                product1.price == product2.price;
+    }
+
     @Override
     public String toString() {
         String expirationInfo = (expirationDate != null) ? "Expiration Date: " + expirationDate : "Expiration Date: Not Set";
-        return String.format("MyComponents.Product ID: %d\nLabel: %s\nBrand: %s\nPrice: %.2f\n%s\n------------------------", id, label, brand, price, expirationInfo);
+        return String.format("Product ID: %d\nLabel: %s\nBrand: %s\nPrice: %.2f\n%s\n------------------------", id, label, brand, price, expirationInfo);
     }
 }
