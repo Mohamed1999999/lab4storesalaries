@@ -1,38 +1,37 @@
+import MyComponents.*;
 import java.util.Date;
-import MyComponents.Product;
-import MyComponents.Store;
 
 public class Main {
     public static void main(String[] args) {
         // Create stores
-        Store store1 = new Store(1, "123 Main St", 5);
-        Store store2 = new Store(2, "456 Elm St", 5);
+        Store store1 = new Store(1, "Carrefour", "City Center", 10);
+        Store store2 = new Store(2, "Monoprix", "Menzah 6", 10);
 
-        // Create products
-        Product milk = new Product(1021, "Milk", "Delight", 0.700, new Date(2025, 2, 15));
-        Product yogurt = new Product(2510, "Yogurt", "Vitalait", 0.500, new Date(2025, 3, 10));
-        Product tomato = new Product(3250, "Tomato", "Sicam", 1.200, new Date(2025, 4, 30));
+        // Add employees to stores
+        store1.addEmployee(new Cashier(1, "Mohamed", "Centreville", 190, 101));
+        store1.addEmployee(new Cashier(2, "Abdou", "Sahloul", 160, 102));
+        store1.addEmployee(new Salesperson(3, "Khadija", "Sahloul2", 0, 15));
+        store1.addEmployee(new Manager(4, "Leo", "Sahloul3", 170, 200));
 
-        // Add products to stores
-        store1.addProduct(milk);
-        store1.addProduct(yogurt);
-        store1.addProduct(tomato);
 
-        store2.addProduct(milk);
+        store2.addEmployee(new Cashier(5, "Eve", "Sahloul 4", 185, 201));
+        store2.addEmployee(new Salesperson(6, "Rayan", "Menzah City", 0, 20));
+        store2.addEmployee(new Salesperson(7, "Maryam", "New Menzah", 0, 25));
+        store2.addEmployee(new Manager(8, "Ibra", "New Sahloul", 180, 300));
 
-        // Search for a product
-        System.out.println("Is Milk in store1? " + store1.searchProduct(milk));
 
-        // Remove a product
-        store1.removeProduct(milk);
-        System.out.println("Is Milk in store1 after removal? " + store1.searchProduct(milk));
-
-        // Compare two stores
-        Store largerStore = Store.getStoreWithMoreProducts(store1, store2);
-        System.out.println("Store with more products: " + largerStore.getAddress());
-
-        // Display store details
         store1.displayStoreDetails();
         store2.displayStoreDetails();
+
+        // Calculate and display salaries
+        System.out.println("Salaries of store1 employees:");
+        for (Employee employee : store1.getEmployees()) {
+            System.out.println(employee.getName() + ": " + employee.calculateSalary() + " DT");
+        }
+
+        System.out.println("Salaries of store2 employees:");
+        for (Employee employee : store2.getEmployees()) {
+            System.out.println(employee.getName() + ": " + employee.calculateSalary() + " DT");
+        }
     }
 }
